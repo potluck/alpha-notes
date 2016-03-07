@@ -2,7 +2,7 @@
 	"name": "Alpha Annotate",
 	"manifest_version": 2,
 	"version": "0.0.1",
-	"permissions": ["storage"],
+	"permissions": ["tabs", "storage"],
 	"content_scripts": [
 		{
 			"matches":["<all_urls>"],

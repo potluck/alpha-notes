@@ -9,9 +9,16 @@ var toggle = "<div class='annotate-toggle'>X</div>";
 
 var noteTemplate = "<div class='annotate-note'><div class='annotate-note-text'></div><div class='annotate-note-close'>X</div></div>";
 
+// get Current page is used to identify the current page, so that notes will be saved
+// and retrieved only when visiting the page again.
+var getCurrentPage = function() {
+	return window.location.hostname + window.location.pathname;
+};
+
 var getNotes = function(callback) {
-	chrome.storage.sync.get('list', function(storage) {
-		var list = storage.list;
+	var currentPage = getCurrentPage();
+	chrome.storage.sync.get(currentPage, function(storage) {
+		var list = storage[currentPage];
 		if (!list || Object.keys(list).length === 0) {
 			list = [];
 		}
@@ -20,26 +27,26 @@ var getNotes = function(callback) {
 };
 
 // Adds a note
-var saveNote = function(text, callback) {
+var saveNote = function(text) {
 	getNotes(function(list) {
 		list.push({
 			text: text
 		});
-		saveNotes(list, callback);
+		saveNotes(list);
 	});
 };
 
 // Saves the list of notes to storage
-var saveNotes = function(list, callback) {
-	chrome.storage.sync.set({'list':list}, function(){
-		callback();
-	});
+var saveNotes = function(list) {
+	var save = {};
+	save[getCurrentPage()] = list;
+	chrome.storage.sync.set(save, function(){});
 };
 
 var removeNote = function(index, callback) {
 	getNotes(function(list) {
 		list.splice(index, 1);
-		saveNotes(list, callback);
+		saveNotes(list);
 	});
 };
 
@@ -58,7 +65,7 @@ var renderNotes = function(list) {
 // listen for changes to storage and render notes. Because this is a listener
 // saveNote will also result in the note being shown
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-	var listChange = changes.list;
+	var listChange = changes[getCurrentPage()];
 	if (!listChange) {
 		return;
 	}
@@ -81,5 +88,8 @@ $(document).ready(function() {
 			console.log("saved");
 		});
 	});
+
+	console.log(getCurrentPage());
+
 	getNotes(renderNotes);
 });
