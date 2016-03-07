@@ -7,7 +7,7 @@ var sidebar = "<div class='annotate-sidebar'><div class='annotate-header'>Notes<
 
 var toggle = "<div class='annotate-toggle'>X</div>";
 
-var noteTemplate = "<div class='annotate-note'></div>";
+var noteTemplate = "<div class='annotate-note'><div class='annotate-note-text'></div><div class='annotate-note-close'>X</div></div>";
 
 var getNotes = function(callback) {
 	chrome.storage.sync.get('list', function(storage) {
@@ -19,23 +19,38 @@ var getNotes = function(callback) {
 	});
 };
 
-// Saves a note to storage
+// Adds a note
 var saveNote = function(text, callback) {
 	getNotes(function(list) {
 		list.push({
 			text: text
 		});
-		chrome.storage.sync.set({'list':list}, function(){
-			callback();
-		});
+		saveNotes(list, callback);
+	});
+};
+
+// Saves the list of notes to storage
+var saveNotes = function(list, callback) {
+	chrome.storage.sync.set({'list':list}, function(){
+		callback();
+	});
+};
+
+var removeNote = function(index, callback) {
+	getNotes(function(list) {
+		list.splice(index, 1);
+		saveNotes(list, callback);
 	});
 };
 
 var renderNotes = function(list) {
 	$('.annotate-note').remove();
-	list.forEach(function(note){
+	list.forEach(function(note, index){
 		var noteView = $.parseHTML(noteTemplate);
-		$(noteView).text(note.text);
+		$(noteView).find('.annotate-note-text').text(note.text);
+		$(noteView).find('.annotate-note-close').click(function() {
+			removeNote(index, function(){});
+		});
 		$('.annotate-list').append(noteView);
 	});
 };
@@ -67,7 +82,4 @@ $(document).ready(function() {
 		});
 	});
 	getNotes(renderNotes);
-// Experiment to move rest of page over - this is turning out to be hard
-//	$('body').wrapInner("<div class='annotate-wrap' />");
-//	$('.annotate-wrap').css('width','70%');
 });
