@@ -84,12 +84,8 @@ $(document).ready(function() {
 
 	// Notes functionality
 	$('.annotate-save').click(function() {
-		saveNote($('.annotate-footer').val(), function() {
-			console.log("saved");
-		});
+		saveNote($('.annotate-footer').val(), function() {});
 	});
-
-	console.log(getCurrentPage());
 
 	getNotes(renderNotes);
 });

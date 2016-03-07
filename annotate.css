@@ -2,17 +2,6 @@
 	display: none;
 }
 
-.annotate-sidebar {
-	position: fixed;
-	top: 0px;
-	right: 0px;
-	width: 25%;
-	height: 100%;
-	z-index:9999999;
-	font-family: helvetica;
-	background-color:#3e8fd6;
-}
-
 .annotate-toggle {
 	position: fixed;
 	top: 0px;
@@ -25,6 +14,18 @@
 
 .annotate-toggle.hidden {
 	right: 0px;
+}
+
+.annotate-sidebar {
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	width: 25%;
+	height: 100%;
+	z-index:9999999;
+	border-left: 1px solid #000022;
+	font-family: helvetica;
+	background-color:#3e8fd6;
 }
 
 .annotate-header {
@@ -42,7 +43,7 @@
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
-	justify-content: center;
+	/*justify-content: center;*/
 }
 
 .annotate-note {
@@ -52,7 +53,7 @@
 	border-radius: 4px;
 	background-color: #fff;
 	color: #3e8fd6;
-	flex-grow: 1;
+	word-wrap: break-word;
 }
 
 .annotate-note-close {
@@ -61,17 +62,17 @@
 
 .annotate-save {
 	position: fixed;
-	bottom: 40px;
+	bottom: 50px;
 	right: 0px;
 }
 
 .annotate-footer {
-	position: fixed;
-	right: 0px;
+	position: absolute;
 	bottom: 0px;
-	width: 25%;
+	width: 100%;
 	height: 50px;
 	border: 0;
+	border-left: 1px solid #000022;
 	padding: 0;
 	margin: 0;
 }
