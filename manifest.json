@@ -1,0 +1,13 @@
+{
+	"name": "Alpha Annotate",
+	"manifest_version": 2,
+	"version": "0.0.1",
+	"permissions": ["storage"],
+	"content_scripts": [
+		{
+			"matches":["<all_urls>"],
+			"js":["jquery-2.2.1.js", "index.js"],
+			"css":["annotate.css"]
+		}
+	]
+}

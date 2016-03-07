@@ -1,0 +1,57 @@
+.annotate-hide {
+	display: none;
+}
+
+.annotate-sidebar {
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	width: 25%;
+	height: 100%;
+	z-index:9999999;
+	font-family: helvetica;
+	background-color:#3e8fd6;
+}
+
+.annotate-header {
+	position: fixed;
+	top 0px;
+	right: 0px;
+	width: 25%;
+	height: 30px;
+	text-align: center;
+}
+
+.annotate-header h2 {
+	color: #fff;
+}
+
+.annotate-list {
+	position: fixed;
+	top: 30px;
+	right: 0px;
+}
+
+.annotate-note {
+	width: 25%;
+	height: 10px;
+	background-color: #fff;
+	z-index: 99999999999999999;
+}
+
+.annotate-save {
+	position: fixed;
+	bottom: 40px;
+	right: 0px;
+}
+
+.annotate-footer {
+	position: fixed;
+	right: 0px;
+	bottom: 0px;
+	width: 25%;
+	height: 50px;
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
