@@ -6,4 +6,4 @@ This is a chrome extension designed to let you save notes for a webpage.
 - (In Chrome) Go to Extensions. Check developer mode in the top right.
 - Click "Load unpacked extension."
 - Select this folder.
-- That's it!
+- If you make changes to the extension files, remember to Reload it on the Extensions page.
